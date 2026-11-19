@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f0f1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Ôn Tập Tư Tưởng Hồ Chí Minh - 220 Câu Trắc Nghiệm</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ef4444'/%3E%3Cpolygon points='32,12 37.9,24.6 51.8,26.4 41.6,36 44.2,49.8 32,43.1 19.8,49.8 22.4,36 12.2,26.4 26.1,24.6' fill='%23fbbf24'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./style.css?v=4" />
+</head>
+<body>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+  <div class="app-layout">
+    <!-- Sidebar chọn bộ đề & chế độ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon">★</div>
+        <div class="brand-text">
+          <h1>Tư Tưởng HCM</h1>
+          <p>Hệ thống ôn luyện 220 câu</p>
+        </div>
+        <button class="sidebar-close-btn" id="btnCloseSidebar" aria-label="Đóng menu">✕</button>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">CHẾ ĐỘ HỌC</div>
+        <div class="mode-switcher">
+          <button class="mode-btn active" data-mode="practice" id="modePractice">
+            🎯 Luyện tập
+          </button>
+          <button class="mode-btn" data-mode="flashcard" id="modeFlashcard">
+            🗂️ Thẻ nhớ
+          </button>
+          <button class="mode-btn" data-mode="list" id="modeList">
+            📋 Tra cứu & Đáp án
+          </button>
+          <button class="mode-btn" data-mode="cheatsheet" id="modeCheatsheet">
+            ⚡ Mẹo nhớ nhanh
+          </button>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">BỘ CÂU HỎI THEO DẠNG (GỢI Ý ÔN DỄ NHỚ)</div>
+        <div class="category-list" id="categoryList">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">LỌC THEO CHƯƠNG</div>
+        <div class="chapter-list" id="chapterList">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-retry-wrong" id="btnRetryWrongSidebar">🔁 Làm lại các câu sai</button>
+        <button class="btn-outline" id="btnShuffle">🔀 Đảo thứ tự câu</button>
+        <button class="btn-outline" id="btnShuffleOptions">🔄 Đảo đáp án A/B/C/D</button>
+        <button class="btn-danger-outline" id="btnResetProgress">🗑️ Xóa lịch sử làm bài</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header Bar -->
+      <header class="topbar">
+        <button class="mobile-menu-btn" id="btnToggleSidebar">☰ Bộ đề</button>
+        <div class="current-set-info">
+          <span class="badge-set" id="currentSetBadge">Tất cả 220 câu</span>
+          <span class="progress-text" id="progressCounter">Câu 1/220</span>
+        </div>
+        <div class="stats-pills">
+          <span class="stat-pill stat-correct" title="Số câu trả lời đúng">✓ <b id="statCorrect">0</b></span>
+          <span class="stat-pill stat-wrong" title="Số câu trả lời sai">✗ <b id="statWrong">0</b></span>
+          <span class="stat-pill stat-star" title="Số câu đánh dấu sao">⭐ <b id="statStarred">0</b></span>
+          <button class="btn-retry-top hidden" id="btnRetryWrongTop" title="Làm lại ngay các câu đã trả lời sai">🔁 Làm lại câu sai</button>
+        </div>
+      </header>
+
+      <!-- Progress bar -->
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+
+      <!-- VIEW 1: PRACTICE QUIZ MODE -->
+      <section class="view-section" id="viewPractice">
+        <div class="quiz-card" id="quizCard">
+          <div class="quiz-card-header">
+            <div class="badges-row" id="questionBadges">
+              <span class="chapter-badge" id="qChapter">CHƯƠNG 1 + 2</span>
+              <span class="type-badge" id="qTypeBadge">Mốc thời gian</span>
+            </div>
+            <div class="card-actions">
+              <span class="q-id-label" id="qIdLabel">#1</span>
+              <button class="star-btn" id="btnStarQuestion" title="Đánh dấu câu hỏi khó (Phím S)">☆</button>
+            </div>
+          </div>
+
+          <h2 class="question-text" id="qText">Đang tải câu hỏi...</h2>
+
+          <div class="options-container" id="optionsContainer">
+            <!-- Options A, B, C, D rendered here -->
+          </div>
+
+          <div class="feedback-banner hidden" id="feedbackBanner"></div>
+        </div>
+
+        <div class="quiz-nav-bar">
+          <button class="nav-btn prev-btn" id="btnPrev">← Trước</button>
+          <button class="nav-btn next-btn" id="btnNext">Tiếp →</button>
+        </div>
+
+        <!-- Question Grid Drawer -->
+        <details class="question-grid-drawer" id="questionGridDrawer">
+          <summary>
+            <span>▸ Danh sách câu (<span id="gridDoneCount">0/220</span> đã làm)</span>
+            <span class="grid-legend">
+              <i class="dot dot-correct"></i> Đúng
+              <i class="dot dot-wrong"></i> Sai
+              <i class="dot dot-star"></i> Đánh dấu
+            </span>
+          </summary>
+          <div class="question-grid" id="questionGrid"></div>
+        </details>
+
+        <div class="shortcut-hint">
+          Phím tắt: <kbd>1</kbd>–<kbd>4</kbd> hoặc <kbd>A</kbd>–<kbd>D</kbd> để chọn • <kbd>←</kbd> <kbd>→</kbd> hoặc <kbd>Space</kbd> chuyển câu • <kbd>S</kbd> đánh dấu sao
+        </div>
+      </section>
+
+      <!-- VIEW 2: FLASHCARD MODE -->
+      <section class="view-section hidden" id="viewFlashcard">
+        <div class="flashcard-wrapper">
+          <div class="flashcard" id="flashcardBox">
+            <div class="flashcard-Hint">Nhấn vào thẻ hoặc ấn phím <kbd>Space</kbd> để lật xem đáp án</div>
+            <div class="badges-row" id="fcBadges"></div>
+            <div class="fc-question" id="fcQuestion"></div>
+            <div class="fc-answer hidden" id="fcAnswerBox">
+              <div class="fc-answer-label">ĐÁP ÁN ĐÚNG:</div>
+              <div class="fc-answer-text" id="fcAnswerText"></div>
+              <div class="fc-other-options" id="fcAllOptions"></div>
+            </div>
+          </div>
+          <div class="quiz-nav-bar">
+            <button class="nav-btn prev-btn" id="btnFcPrev">← Trước</button>
+            <button class="nav-btn flip-btn" id="btnFcFlip">🔄 Lật thẻ (Space)</button>
+            <button class="nav-btn next-btn" id="btnFcNext">Tiếp →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: LIST & SEARCH MODE -->
+      <section class="view-section hidden" id="viewList">
+        <div class="search-toolbar">
+          <input type="text" id="searchInput" class="search-input" placeholder="🔍 Tìm kiếm từ khóa câu hỏi hoặc đáp án (ví dụ: Véc-xây, 1930, đạo đức, Đại hội...)" />
+          <label class="toggle-hide-ans">
+            <input type="checkbox" id="chkHideAnswersInList" />
+            <span>Ẩn đáp án để tự nhẩm</span>
+          </label>
+        </div>
+        <div class="list-count-info" id="listCountInfo">Hiển thị 220 câu hỏi</div>
+        <div class="questions-list-view" id="questionsListView"></div>
+      </section>
+
+      <!-- VIEW 4: CHEATSHEET / MẸO NHỚ NHANH -->
+      <section class="view-section hidden" id="viewCheatsheet">
+        <div class="cheatsheet-container" id="cheatsheetContainer">
+          <!-- Populated by app.js -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./questions_data.js?v=4"></script>
+  <script src="./app.js?v=4"></script>
+</body>
+</html>
