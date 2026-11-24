@@ -138,6 +138,82 @@ body {
   gap: 6px;
 }
 
+.subject-switcher {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.subject-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  background: var(--bg-option);
+  border: 1.5px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 9px 10px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.subject-btn small {
+  font-size: 0.7rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.subject-btn:hover {
+  background: var(--bg-option-hover);
+  color: var(--text-primary);
+}
+
+.subject-btn.active {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.28), rgba(56, 189, 248, 0.16));
+  border-color: var(--accent-purple);
+  color: #fff;
+}
+
+.quick-subject-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quick-subj-tab {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 9px 12px;
+  border-radius: 11px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.quick-subj-tab:hover {
+  background: var(--bg-option-hover);
+  color: #fff;
+}
+
+.quick-subj-tab.active {
+  background: var(--accent-purple-bg);
+  border-color: var(--accent-purple);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.22);
+}
+
+.brand-icon.attt-icon {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.32);
+}
+
 .mode-btn {
   background: var(--bg-option);
   border: 1px solid var(--border-subtle);

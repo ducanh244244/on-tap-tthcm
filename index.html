@@ -6,22 +6,36 @@
   <meta name="theme-color" content="#0f0f1a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Ôn Tập Tư Tưởng Hồ Chí Minh - 220 Câu Trắc Nghiệm</title>
+  <title>Ôn Tập Trắc Nghiệm — TTHCM & An Toàn Thông Tin</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ef4444'/%3E%3Cpolygon points='32,12 37.9,24.6 51.8,26.4 41.6,36 44.2,49.8 32,43.1 19.8,49.8 22.4,36 12.2,26.4 26.1,24.6' fill='%23fbbf24'/%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="./style.css?v=4" />
+  <link rel="stylesheet" href="./style.css?v=5" />
 </head>
 <body>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
   <div class="app-layout">
-    <!-- Sidebar chọn bộ đề & chế độ -->
+    <!-- Sidebar chọn môn, bộ đề & chế độ -->
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="brand-icon">★</div>
+        <div class="brand-icon" id="brandIcon">★</div>
         <div class="brand-text">
-          <h1>Tư Tưởng HCM</h1>
-          <p>Hệ thống ôn luyện 220 câu</p>
+          <h1 id="brandTitle">Tư Tưởng HCM</h1>
+          <p id="brandSubtitle">Hệ thống ôn luyện 220 câu</p>
         </div>
         <button class="sidebar-close-btn" id="btnCloseSidebar" aria-label="Đóng menu">✕</button>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">CHỌN MÔN HỌC</div>
+        <div class="subject-switcher" id="subjectSwitcher">
+          <button class="subject-btn active" data-subject="tthcm" id="subjBtnTthcm">
+            <span>⭐ Tư tưởng HCM</span>
+            <small>220 câu</small>
+          </button>
+          <button class="subject-btn" data-subject="attt" id="subjBtnAttt">
+            <span>🔐 An toàn TT</span>
+            <small>343 câu</small>
+          </button>
+        </div>
       </div>
 
       <div class="nav-section">
@@ -66,6 +80,12 @@
 
     <!-- Main Content -->
     <main class="main-content">
+      <!-- Quick Subject Switcher Bar (tiện bấm 1 chạm trên điện thoại) -->
+      <div class="quick-subject-tabs" id="quickSubjectTabs">
+        <button class="quick-subj-tab active" data-subject="tthcm">⭐ Tư tưởng Hồ Chí Minh (220)</button>
+        <button class="quick-subj-tab" data-subject="attt">🔐 An toàn thông tin (343)</button>
+      </div>
+
       <!-- Top Header Bar -->
       <header class="topbar">
         <button class="mobile-menu-btn" id="btnToggleSidebar">☰ Bộ đề</button>
@@ -175,7 +195,8 @@
     </main>
   </div>
 
-  <script src="./questions_data.js?v=4"></script>
-  <script src="./app.js?v=4"></script>
+  <script src="./questions_data.js?v=5"></script>
+  <script src="./attt_data.js?v=5"></script>
+  <script src="./app.js?v=5"></script>
 </body>
 </html>
